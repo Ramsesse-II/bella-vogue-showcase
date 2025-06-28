@@ -12,17 +12,8 @@ const Hero = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Fixed background image */}
-      <div 
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{
-          backgroundImage: 'url(/lovable-uploads/6dcb8d5f-8803-420c-8415-b95621eeafbc.png)',
-          backgroundAttachment: 'fixed'
-        }}
-      />
-      
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70 z-10"></div>
+      {/* Gradient background instead of image */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-red-900 z-0"></div>
       
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10 z-20">

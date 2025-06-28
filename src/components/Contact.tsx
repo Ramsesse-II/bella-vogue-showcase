@@ -40,7 +40,7 @@ const Contact = () => {
                 <Heart className="mr-3" size={20} />
                 <div className="text-left">
                   <div className="text-sm font-semibold">OnlyFans Esclusivo</div>
-                  <div className="text-xs opacity-90">Contenuti premium e lezioni private</div>
+                  <div className="text-xs opacity-90">Vuoi vedere come "spiego" davvero? 🔥</div>
                 </div>
               </Button>
               
@@ -51,15 +51,15 @@ const Contact = () => {
                 <MessageCircle className="mr-3" size={20} />
                 <div className="text-left">
                   <div className="text-sm font-semibold">Telegram Privato</div>
-                  <div className="text-xs opacity-90">Chat diretta e contenuti esclusivi</div>
+                  <div className="text-xs opacity-90">Scrivimi... se hai il coraggio 😈</div>
                 </div>
               </Button>
             </div>
 
             <div className="mt-8 text-center">
               <p className="text-xs text-gray-500 leading-relaxed">
-                "Ricorda: sono io che scelgo i miei studenti preferiti. 
-                <br />Dimostrami di meritare la mia attenzione."
+                "Le mie lezioni più speciali sono solo per chi sa apprezzare... 
+                <br />Ti senti abbastanza maturo per la mia classe privata?"
               </p>
             </div>
           </div>
