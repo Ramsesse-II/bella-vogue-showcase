@@ -43,11 +43,6 @@ const portfolioImages = [
 
 const Portfolio = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [filter, setFilter] = useState<string>('all');
-
-  const filteredImages = filter === 'all' 
-    ? portfolioImages 
-    : portfolioImages.filter(img => img.category === filter);
 
   const openModal = (index: number) => {
     setSelectedImage(index);
@@ -59,78 +54,34 @@ const Portfolio = () => {
 
   const nextImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % filteredImages.length);
+      setSelectedImage((selectedImage + 1) % portfolioImages.length);
     }
   };
 
   const prevImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? filteredImages.length - 1 : selectedImage - 1);
+      setSelectedImage(selectedImage === 0 ? portfolioImages.length - 1 : selectedImage - 1);
     }
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-white">
+    <section id="portfolio" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative z-40">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light text-black mb-4 tracking-wider">
+          <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wider">
             PORTFOLIO
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 italic">
+          <p className="text-lg text-rose-200 max-w-2xl mx-auto mb-8 italic">
             "Ogni foto racconta una lezione... sei pronto ad imparare?"
           </p>
-          
-          {/* Filter buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <button
-              onClick={() => setFilter('all')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === 'all'
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Tutte le Lezioni
-            </button>
-            <button
-              onClick={() => setFilter('portrait')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === 'portrait'
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Ritratti
-            </button>
-            <button
-              onClick={() => setFilter('lifestyle')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === 'lifestyle'
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Lifestyle
-            </button>
-            <button
-              onClick={() => setFilter('intimate')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === 'intimate'
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Intimate
-            </button>
-          </div>
         </div>
 
         {/* Portfolio Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
-          {filteredImages.map((image, index) => (
+          {portfolioImages.map((image, index) => (
             <div
               key={index}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]"
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-2xl hover:shadow-red-500/20 transition-all duration-500 transform hover:scale-[1.02] border border-red-900/30"
               onClick={() => openModal(index)}
             >
               <img
@@ -138,10 +89,10 @@ const Portfolio = () => {
                 alt={image.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <h3 className="font-medium text-lg mb-1">{image.title}</h3>
-                  <p className="text-sm opacity-90 italic">{image.description}</p>
+                  <h3 className="font-medium text-lg mb-1 text-rose-100">{image.title}</h3>
+                  <p className="text-sm opacity-90 italic text-rose-200">{image.description}</p>
                 </div>
               </div>
             </div>
@@ -153,36 +104,36 @@ const Portfolio = () => {
           <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
             <button
               onClick={closeModal}
-              className="absolute top-6 right-6 text-white hover:text-pink-300 transition-colors z-10"
+              className="absolute top-6 right-6 text-white hover:text-red-300 transition-colors z-10"
             >
               <X size={32} />
             </button>
             
             <button
               onClick={prevImage}
-              className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-300 transition-colors z-10"
+              className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-red-300 transition-colors z-10"
             >
               <ChevronLeft size={40} />
             </button>
             
             <button
               onClick={nextImage}
-              className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-300 transition-colors z-10"
+              className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-red-300 transition-colors z-10"
             >
               <ChevronRight size={40} />
             </button>
 
             <div className="max-w-4xl max-h-full flex items-center justify-center">
               <img
-                src={filteredImages[selectedImage].src}
-                alt={filteredImages[selectedImage].title}
+                src={portfolioImages[selectedImage].src}
+                alt={portfolioImages[selectedImage].title}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
             </div>
             
             <div className="absolute bottom-6 left-6 right-6 text-center text-white">
-              <h3 className="text-xl font-medium mb-2">{filteredImages[selectedImage].title}</h3>
-              <p className="text-sm opacity-90 italic">{filteredImages[selectedImage].description}</p>
+              <h3 className="text-xl font-medium mb-2 text-rose-100">{portfolioImages[selectedImage].title}</h3>
+              <p className="text-sm opacity-90 italic text-rose-200">{portfolioImages[selectedImage].description}</p>
             </div>
           </div>
         )}
