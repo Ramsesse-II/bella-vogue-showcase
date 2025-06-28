@@ -1,135 +1,76 @@
 
-import React, { useState } from 'react';
-import { Mail, Instagram, Phone, MapPin } from 'lucide-react';
+import React from 'react';
+import { MessageCircle, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Here you would typically send the form data to a backend service
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
-
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-gradient-to-br from-pink-50 via-purple-50 to-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-light text-black mb-4 tracking-wider">
-            CONTACT
+            CONTATTI
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Let's create something beautiful together. Reach out for collaborations, bookings, or just to say hello.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto italic">
+            "Vuoi una lezione privata? Scegli come raggiungermi... 
+            <br />ma ricorda: accetto solo alunni speciali."
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-light text-black mb-6 tracking-wide">GET IN TOUCH</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <Mail className="text-gray-400" size={20} />
-                  <span className="text-gray-600">elena.model@email.com</span>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <Phone className="text-gray-400" size={20} />
-                  <span className="text-gray-600">+1 (555) 123-4567</span>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <MapPin className="text-gray-400" size={20} />
-                  <span className="text-gray-600">Milan, Italy / New York, USA</span>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <Instagram className="text-gray-400" size={20} />
-                  <span className="text-gray-600">@elena.model</span>
-                </div>
+        <div className="max-w-md mx-auto">
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-pink-100">
+            <div className="text-center mb-8">
+              <div className="w-24 h-24 mx-auto mb-4 relative">
+                <img
+                  src="/lovable-uploads/6dcb8d5f-8803-420c-8415-b95621eeafbc.png"
+                  alt="La Prof Sara"
+                  className="w-full h-full object-cover rounded-full shadow-lg"
+                />
+                <div className="absolute -inset-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-30"></div>
               </div>
+              <h3 className="text-xl font-medium text-gray-800 mb-2">La Prof Sara</h3>
+              <p className="text-sm text-gray-500 italic">"La tua insegnante preferita"</p>
             </div>
 
-            <div>
-              <h3 className="text-xl font-light text-black mb-4 tracking-wide">WORKING HOURS</h3>
-              <div className="text-gray-600 space-y-2">
-                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p>Weekend shoots by appointment</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="border-gray-300 focus:border-black"
-                />
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="border-gray-300 focus:border-black"
-                />
-              </div>
-              
-              <Input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                required
-                className="border-gray-300 focus:border-black"
-              />
-              
-              <Textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={6}
-                className="border-gray-300 focus:border-black resize-none"
-              />
+            <div className="space-y-4">
+              <Button 
+                className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-medium py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                onClick={() => window.open('#', '_blank')}
+              >
+                <Heart className="mr-3" size={20} />
+                <div className="text-left">
+                  <div className="text-sm font-semibold">OnlyFans Esclusivo</div>
+                  <div className="text-xs opacity-90">Contenuti premium e lezioni private</div>
+                </div>
+              </Button>
               
               <Button 
-                type="submit"
-                className="w-full bg-black hover:bg-gray-800 text-white font-light tracking-wider py-3"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                onClick={() => window.open('#', '_blank')}
               >
-                SEND MESSAGE
+                <MessageCircle className="mr-3" size={20} />
+                <div className="text-left">
+                  <div className="text-sm font-semibold">Telegram Privato</div>
+                  <div className="text-xs opacity-90">Chat diretta e contenuti esclusivi</div>
+                </div>
               </Button>
-            </form>
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-xs text-gray-500 leading-relaxed">
+                "Ricorda: sono io che scelgo i miei studenti preferiti. 
+                <br />Dimostrami di meritare la mia attenzione."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center space-x-4 bg-white/50 px-6 py-3 rounded-full shadow-sm">
+            <span className="text-sm text-gray-600">Orari di ricevimento:</span>
+            <span className="text-sm font-medium text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
+              Sempre disponibile per alunni speciali
+            </span>
           </div>
         </div>
       </div>

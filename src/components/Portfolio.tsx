@@ -1,49 +1,73 @@
 
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const portfolioImages = [
+  {
+    src: '/lovable-uploads/6dcb8d5f-8803-420c-8415-b95621eeafbc.png',
+    title: 'Lezione di Seduzione',
+    description: 'Quando l\'alunno ha bisogno di attenzioni speciali...',
+    category: 'intimate'
+  },
+  {
+    src: '/lovable-uploads/28a38f65-d089-4ffe-ae2f-057e74624da5.png',
+    title: 'Dopo la Doccia',
+    description: 'Preparandosi per la lezione successiva',
+    category: 'lifestyle'
+  },
+  {
+    src: '/lovable-uploads/a40111b6-52ac-45d6-ad89-5eec30eb3b8a.png',
+    title: 'L\'Insegnante',
+    description: 'Eleganza e controllo in ogni gesto',
+    category: 'portrait'
+  },
+  {
+    src: '/lovable-uploads/4bb2838a-ab04-4ecd-b05a-540f1398e142.png',
+    title: 'Momento di Relax',
+    description: 'Anche le prof hanno bisogno di una pausa...',
+    category: 'lifestyle'
+  },
+  {
+    src: '/lovable-uploads/d28af8e0-eae3-4453-84fc-b849b4ea394f.png',
+    title: 'Sguardo Penetrante',
+    description: 'Lo sguardo che non dimenticherai mai',  
+    category: 'portrait'
+  },
+  {
+    src: '/lovable-uploads/389dbce5-cad8-469e-b75f-c8604f7a1f87.png',
+    title: 'Lezione Privata',
+    description: 'Per gli alunni più... meritevoli',
+    category: 'intimate'
+  }
+];
 
 const Portfolio = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [filter, setFilter] = useState<string>('all');
 
-  // Placeholder images for the portfolio
-  const portfolioImages = [
-    {
-      id: 1,
-      src: "https://images.unsplash.com/photo-1494790108755-2616c27fe128?w=600&h=800&fit=crop&crop=face",
-      alt: "Fashion Portrait 1",
-      category: "Fashion"
-    },
-    {
-      id: 2,
-      src: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&h=800&fit=crop&crop=face",
-      alt: "Editorial Shot 1",
-      category: "Editorial"
-    },
-    {
-      id: 3,
-      src: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&h=800&fit=crop&crop=face",
-      alt: "Commercial 1",
-      category: "Commercial"
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=face",
-      alt: "Portrait 1",
-      category: "Portrait"
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&crop=face",
-      alt: "Fashion Portrait 2",
-      category: "Fashion"
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=800&fit=crop&crop=face",
-      alt: "Editorial Shot 2",
-      category: "Editorial"
+  const filteredImages = filter === 'all' 
+    ? portfolioImages 
+    : portfolioImages.filter(img => img.category === filter);
+
+  const openModal = (index: number) => {
+    setSelectedImage(index);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+  const nextImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage((selectedImage + 1) % filteredImages.length);
     }
-  ];
+  };
+
+  const prevImage = () => {
+    if (selectedImage !== null) {
+      setSelectedImage(selectedImage === 0 ? filteredImages.length - 1 : selectedImage - 1);
+    }
+  };
 
   return (
     <section id="portfolio" className="py-20 bg-white">
@@ -52,46 +76,114 @@ const Portfolio = () => {
           <h2 className="text-4xl md:text-5xl font-light text-black mb-4 tracking-wider">
             PORTFOLIO
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A curated selection of my work spanning fashion, editorial, and commercial photography
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 italic">
+            "Ogni foto racconta una lezione... sei pronto ad imparare?"
           </p>
+          
+          {/* Filter buttons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                filter === 'all'
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Tutte le Lezioni
+            </button>
+            <button
+              onClick={() => setFilter('portrait')}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                filter === 'portrait'
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Ritratti
+            </button>
+            <button
+              onClick={() => setFilter('lifestyle')}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                filter === 'lifestyle'
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Lifestyle
+            </button>
+            <button
+              onClick={() => setFilter('intimate')}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                filter === 'intimate'
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Intimate
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {portfolioImages.map((image, index) => (
-            <div 
-              key={image.id}
-              className="group cursor-pointer overflow-hidden bg-gray-100 aspect-[3/4] relative"
-              onClick={() => setSelectedImage(index)}
+        {/* Portfolio Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
+          {filteredImages.map((image, index) => (
+            <div
+              key={index}
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]"
+              onClick={() => openModal(index)}
             >
               <img
                 src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                alt={image.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-light tracking-wider">
-                  {image.category}
-                </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <h3 className="font-medium text-lg mb-1">{image.title}</h3>
+                  <p className="text-sm opacity-90 italic">{image.description}</p>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modal for enlarged image */}
+        {/* Modal */}
         {selectedImage !== null && (
-          <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
             <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+              onClick={closeModal}
+              className="absolute top-6 right-6 text-white hover:text-pink-300 transition-colors z-10"
             >
               <X size={32} />
             </button>
-            <img
-              src={portfolioImages[selectedImage].src}
-              alt={portfolioImages[selectedImage].alt}
-              className="max-w-full max-h-full object-contain"
-            />
+            
+            <button
+              onClick={prevImage}
+              className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-300 transition-colors z-10"
+            >
+              <ChevronLeft size={40} />
+            </button>
+            
+            <button
+              onClick={nextImage}
+              className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-300 transition-colors z-10"
+            >
+              <ChevronRight size={40} />
+            </button>
+
+            <div className="max-w-4xl max-h-full flex items-center justify-center">
+              <img
+                src={filteredImages[selectedImage].src}
+                alt={filteredImages[selectedImage].title}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              />
+            </div>
+            
+            <div className="absolute bottom-6 left-6 right-6 text-center text-white">
+              <h3 className="text-xl font-medium mb-2">{filteredImages[selectedImage].title}</h3>
+              <p className="text-sm opacity-90 italic">{filteredImages[selectedImage].description}</p>
+            </div>
           </div>
         )}
       </div>
